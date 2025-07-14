@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Passport Applications</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left; /* Better readability */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            width: 80px;
+            height: 80px; /* Keep consistent height */
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<h2>Passport Applications</h2>
+
+<!-- Show message if no applications -->
+<div th:if="${#lists.isEmpty(applications)}">
+    <p>No applications found.</p>
+</div>
+
+<!-- Show table only if applications list is not empty -->
+<table th:if="${!#lists.isEmpty(applications)}">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>DOB</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Citizenship Number</th>
+        <th>Passport Type</th>
+        <th>Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="app : ${applications}">
+        <td th:text="${app.name}">Name</td>
+        <td th:text="${app.dob}">DOB</td>
+        <td th:text="${app.email}">Email</td>
+        <td th:text="${app.address}">Address</td>
+        <td th:text="${app.gender}">Gender</td>
+        <td th:text="${app.citizenshipNumber}">Citizen No</td>
+        <td th:text="${app.passportType}">Type</td>
+        <td>
+            <img th:if="${app.photoUrl != null}" th:src="@{${app.photoUrl}}" alt="Passport Photo" />
+            <span th:if="${app.photoUrl == null}">No photo</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
